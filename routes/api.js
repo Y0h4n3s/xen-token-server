@@ -20,6 +20,7 @@ router.get('/', function (req, res, next) {
 router.post("/signedTransfer", async (req, res, next) => {
 console.log(TransferHelper)
   let {wallet, transferAmount, targetAddress} = req.body
+    // get a transaction object signed with a feepayer account
     let result = await new TransferHelper().createTransferIx(new PublicKey(wallet), new PublicKey(targetAddress), new BN(transferAmount))
     res.send(result)
 })
