@@ -15,13 +15,14 @@ router.get('/', function (req, res, next) {
     wallet: the address of the sender,
     transferAmount: how many tokens will be transfered,
     targetAddress: the receiver's address
+    token: The token type transferred values: XEN, PERA, QIA
   POST returns a Transaction class object signed with a feepayer
  */
 router.post("/signedTransfer", async (req, res, next) => {
 console.log(TransferHelper)
-  let {wallet, transferAmount, targetAddress} = req.body
+  let {wallet, transferAmount, targetAddress, token} = req.body
     // get a transaction object signed with a feepayer account
-    let result = await new TransferHelper().createTransferIx(new PublicKey(wallet), new PublicKey(targetAddress), new BN(transferAmount))
+    let result = await new TransferHelper().createTransferTx(new PublicKey(wallet), new PublicKey(targetAddress), new BN(transferAmount), token)
     res.send(result)
 })
 
